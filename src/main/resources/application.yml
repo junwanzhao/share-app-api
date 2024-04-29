@@ -74,14 +74,14 @@ auth:
 # ??? OSS ????????
 aliyun:
   oss:
-    # oss ?????????
-    endpoint: endpoint
-    # ?????????????
-    accessKeyId: accessKeyId
-    # ???????????? oss ????????????
-    accessKeySecret: accessKeySecret
-    # oss??????
-    bucketName: bucketName
+    # oss对外访服务的访问域名，按照自己情况修改
+    endpoint: oss-cn-hangzhou.aliyuncs.com
+    # 访问身份验证中用到用户标识，替换成自己的
+    accessKeyId: LTAI5tFGTwz3KAkmNkHXtv3j
+    # 用户用于加密签名字符串和oss用来验证签名字符串的密钥，替换成自己的
+    accessKeySecret: 7phmgsE5reCpGvoIrzCEth1PphVpmW
+    # oss 的存储空间名
+    bucketName: hyzhu-oss
 
 # ??????????????
 share:
@@ -89,7 +89,7 @@ share:
     ccp:
       serverIp: app.cloopen.com
       port: 8883
-      accountSId: accountSId
-      accountToken: accountToken
-      appId: appId
+      accountSId: 2c94811c8cd4da0a018ef194263a66df
+      accountToken: 84ae894abd6d401f8f2f6f1b7613e6bf
+      appId: 2c94811c8cd4da0a018ef19427c366e6
       templateId: 1

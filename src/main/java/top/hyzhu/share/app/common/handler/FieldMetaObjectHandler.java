@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 /**
  * @Author: zhy
- * @Description:
+ * @Description: 分离项目中通用的业务逻辑
  * @Date: 2024-04-28 20:28
  **/
 @Component
