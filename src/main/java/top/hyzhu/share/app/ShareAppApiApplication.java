@@ -1,5 +1,6 @@
 package top.hyzhu.share.app;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Description: 项目启动主类
  **/
 @SpringBootApplication
+@MapperScan(basePackages = {"top.hyzhu.share.app.mapper"})
 public class ShareAppApiApplication {
 
     public static void main(String[] args) {

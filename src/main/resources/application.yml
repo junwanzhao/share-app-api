@@ -7,10 +7,10 @@ server:
 
 spring:
   application:
-    # ????
+    # 系统名称
     name: share-app-api
   profiles:
-    # ????
+    # 运行环境
     active: dev
   mvc:
     path-match:
@@ -96,4 +96,4 @@ share:
       accountSId: 2c94811c8cd4da0a018ef194263a66df
       accountToken: 84ae894abd6d401f8f2f6f1b7613e6bf
       appId: 2c94811c8cd4da0a018ef19427c366e6
-      templateId: 1
+      templateId: 1 #短信模板编号
