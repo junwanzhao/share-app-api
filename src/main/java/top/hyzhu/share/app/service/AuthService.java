@@ -34,4 +34,17 @@ public interface AuthService extends IService<User> {
     * @param userId 用户 ID
     * @return boolean*/
     boolean checkUserEnabled(Integer userId);
+
+    /*
+    * 登出*/
+    void logout();
+
+    /*
+    * 绑定手机号
+    *
+    * @param phone 电话
+    * @param code   验证码
+    * @param accessToken 访问令牌*/
+
+    void bindPhone(String phone, String code, String accessToken);
 }

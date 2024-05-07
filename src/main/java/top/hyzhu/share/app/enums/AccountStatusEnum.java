@@ -13,7 +13,7 @@ import java.util.Objects;
 
 @Getter
 @AllArgsConstructor
-public enum AccountstatusEnum {
+public enum AccountStatusEnum {
     /*停用*/
     DISABLE(0, "停用"),
     /*正常*/
@@ -22,7 +22,7 @@ public enum AccountstatusEnum {
     private final String name;
 
     public static String getNameByValue(int value) {
-    for (AccountstatusEnum s : AccountstatusEnum.values()) {
+    for (AccountStatusEnum s : AccountStatusEnum.values()) {
         if (s.getValue() == value) {
             return s.getName();
         }
@@ -30,7 +30,7 @@ public enum AccountstatusEnum {
     return "";
     }
     public static Integer getValueByName(String name) {
-        for (AccountstatusEnum s : AccountstatusEnum.values()) {
+        for (AccountStatusEnum s : AccountStatusEnum.values()) {
             if (Objects.equals(s.getName(), name)) {
                 return s.getValue();
             }

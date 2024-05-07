@@ -30,7 +30,7 @@ public class User {
     private Integer bonus;
     private String remark;
     /**
-     * @see top.hyzhu.share.app.enums.AccountstatusEnum
+     * @see top.hyzhu.share.app.enums.AccountStatusEnum
      */
     private Integer enabled;
 

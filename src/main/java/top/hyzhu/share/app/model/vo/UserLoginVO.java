@@ -2,6 +2,8 @@ package top.hyzhu.share.app.model.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -11,7 +13,6 @@ import java.io.Serializable;
  * @Description: 用于返回封装给客户端的参数
  * @Date: 2024-05-07 10:19
  **/
-
 @Data
 @Schema(description="用户登录vo")
 public class UserLoginVO implements Serializable {

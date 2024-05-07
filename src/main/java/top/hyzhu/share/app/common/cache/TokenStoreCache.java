@@ -1,13 +1,16 @@
 package top.hyzhu.share.app.common.cache;
-import static net.sf.jsqlparser.util.validation.metadata.NamedObject.user;
-import static top.hyzhu.share.app.common.cache.RedisCache.HOUR_SIX_EXPIRE;
+
+
+
 import com.alibaba.fastjson2.JSON;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import top.hyzhu.share.app.model.vo.UserLoginVO;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import static top.hyzhu.share.app.common.cache.RedisCache.HOUR_SIX_EXPIRE;
 /**
  * @Author: zhy
  * @Description: 用于方便操作用户缓存
@@ -17,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 public class TokenStoreCache {
     private final RedisCache redisCache;
-    public void saveUser(String accessToken, UserLoginVO userLoginVO) {
+    public void saveUser(String accessToken, UserLoginVO user) {
         String accessTokenKey = RedisKeys.getAccessTokenKey(accessToken);
         String userIdKey = RedisKeys.getUserIdKey(user.getPkId());
         if(redisCache.get(userIdKey)!= null) {

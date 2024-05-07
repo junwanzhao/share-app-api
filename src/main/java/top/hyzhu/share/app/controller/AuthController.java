@@ -31,4 +31,20 @@ public class AuthController {
     public Result<UserLoginVO> weChatLogin(@RequestBody WxLoginDTO dto){
         return Result.ok(authService.weChatLogin(dto));
     }
+
+    @PostMapping("/logout")
+    @Operation(summary = "登出")
+    public Result<String> logout(){
+        authService.logout();
+        return Result.ok();
+    }
+
+    @PostMapping("/bindPhone")
+    @Operation(summary = "绑定手机号")
+    public Result<String> bindPhone(@RequestParam("phone") String phone,
+                                    @RequestParam("code") String code,
+                                    @RequestParam("Authorization") String accessToken){
+        authService.bindPhone(phone,code,accessToken);
+        return Result.ok();
+    }
 }
