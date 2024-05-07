@@ -21,7 +21,7 @@ public class AESUtil {
      *
      * @param encryptedData 加密数据
      * @param sessionKey 会话密钥
-     * @param vi
+     * @param vi        6
      * @return {@link String}*/
     public static String decrypt(String encryptedData, String sessionKey, String vi) {
         byte[] encData = Base64.decodeBase64(encryptedData);

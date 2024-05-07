@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 @Data
 @Schema(description="用户登录vo")
-public class UserLoginV0 implements Serializable {
+public class UserLoginVO implements Serializable {
     @Serial
     private static final long serialVersionUID = 8212240698099812005L;
 

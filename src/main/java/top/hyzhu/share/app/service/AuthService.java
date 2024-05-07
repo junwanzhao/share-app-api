@@ -1,8 +1,9 @@
 package top.hyzhu.share.app.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import top.hyzhu.share.app.model.dto.WxLoginDTO;
 import top.hyzhu.share.app.model.entity.User;
-import top.hyzhu.share.app.model.vo.UserLoginV0;
+import top.hyzhu.share.app.model.vo.UserLoginVO;
 
 /**
  * @Author: zhy
@@ -18,7 +19,7 @@ public interface AuthService extends IService<User> {
     * @param phone 电话
     * @phone code 验证码
     * @return {@link UserLoginVO}*/
-    UserLoginV0 loginByPhone(String phone,String code);
+    UserLoginVO loginByPhone(String phone, String code);
 
     /*
      * 微信登录
@@ -26,5 +27,11 @@ public interface AuthService extends IService<User> {
      * @param loginDTo DTO
      * @return {@link UserLoginVO}
      */
-
+    UserLoginVO weChatLogin(WxLoginDTO loginDTO);
+    /*
+    * 检查用户是否启用
+    *
+    * @param userId 用户 ID
+    * @return boolean*/
+    boolean checkUserEnabled(Integer userId);
 }

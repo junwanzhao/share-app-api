@@ -16,5 +16,4 @@ public class ShareAppApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(ShareAppApiApplication.class, args);
     }
-
 }
