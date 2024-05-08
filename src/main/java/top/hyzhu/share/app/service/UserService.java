@@ -1,6 +1,7 @@
 package top.hyzhu.share.app.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import top.hyzhu.share.app.model.dto.UserEditDTO;
 import top.hyzhu.share.app.model.entity.User;
 import top.hyzhu.share.app.model.vo.UserInfoVO;
 
@@ -15,4 +16,11 @@ public interface UserService extends IService<User> {
     *
     * @return {@link UserInfoVO}*/
     UserInfoVO userInfo();
+
+    /*
+    * 更新信息
+    *
+    * @param userEditDTO 用户编辑 DTO
+    * @return UserInfoVO*/
+    UserInfoVO updateInfo(UserEditDTO userEditDTO);
 }

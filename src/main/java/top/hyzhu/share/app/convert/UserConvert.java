@@ -3,6 +3,7 @@ package top.hyzhu.share.app.convert;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+import top.hyzhu.share.app.model.dto.UserEditDTO;
 import top.hyzhu.share.app.model.entity.User;
 import top.hyzhu.share.app.model.vo.UserInfoVO;
 /**
@@ -14,5 +15,5 @@ import top.hyzhu.share.app.model.vo.UserInfoVO;
 public interface UserConvert {
     UserConvert INSTANCE = Mappers.getMapper(UserConvert.class);
     UserInfoVO convert(User user);
-
+    User convert(UserEditDTO dto);
 }
