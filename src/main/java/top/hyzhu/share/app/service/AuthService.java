@@ -28,6 +28,7 @@ public interface AuthService extends IService<User> {
      * @return {@link UserLoginVO}
      */
     UserLoginVO weChatLogin(WxLoginDTO loginDTO);
+
     /*
     * 检查用户是否启用
     *

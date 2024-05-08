@@ -72,7 +72,7 @@ knife4j:
 auth:
   valid_urls:
     - /auth/logout
-    - /user/**
+    - /user/**        #表示 /user 前缀的所有 URL 都会被拦截
     - /resource/publish
 
 # ??? OSS ????????

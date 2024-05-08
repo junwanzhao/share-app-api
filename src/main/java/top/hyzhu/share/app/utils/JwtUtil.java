@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 /**
  * @author zhy
- * @date 2024/4/28
+ * @date 2024/5/7
  * @description JwtUtil
  **/
 @Slf4j
@@ -36,10 +36,12 @@ public class JwtUtil {
         payload.put(RegisteredPayload.NOT_BEFORE, now);
         // ⾃定义载荷
         payload.put(Constant.USER_ID, userId);
+        //createToken用于生成JWT（JSON Web Token）
         String token = JWTUtil.createToken(payload, KEY.getBytes());
         log.info("⽣成 JWT token：{}", token);
         return token;
     }
+    //validate用于验证JWT的有效性
     public static boolean validate(String token) {
         try {
             JWT jwt = JWTUtil.parseToken(token).setKey(KEY.getBytes());
@@ -54,6 +56,7 @@ public class JwtUtil {
     }
     public static JSONObject getJSONObject(String token) {
         JWT jwt = JWTUtil.parseToken(token).setKey(KEY.getBytes());
+        //getPayloads() 返回的是 JWT 的载荷部分，但通常是一个 String 类型的 JSON
         JSONObject payloads = jwt.getPayloads();
         payloads.remove(RegisteredPayload.ISSUED_AT);
         payloads.remove(RegisteredPayload.EXPIRES_AT);

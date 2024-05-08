@@ -27,7 +27,9 @@ public class AuthController {
     public Result<UserLoginVO> loginByPhone(@RequestParam("phone") String phone,@RequestParam("code") String code) {
         return Result.ok(authService.loginByPhone(phone,code));
     }
-    //@RequestBody：Sp  ring 提供注解，意为使用 JSON 格式接收请求参数
+    @PostMapping("/weChatLogin")
+    @Operation(summary = "微信登录")
+    //@RequestBody：Spring 提供注解，意为使用 JSON 格式接收请求参数
     public Result<UserLoginVO> weChatLogin(@RequestBody WxLoginDTO dto){
         return Result.ok(authService.weChatLogin(dto));
     }
