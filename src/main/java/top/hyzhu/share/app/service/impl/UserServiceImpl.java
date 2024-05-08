@@ -12,6 +12,7 @@ import top.hyzhu.share.app.mapper.UserMapper;
 import top.hyzhu.share.app.model.dto.UserEditDTO;
 import top.hyzhu.share.app.model.entity.User;
 import top.hyzhu.share.app.model.vo.UserInfoVO;
+import top.hyzhu.share.app.service.BonusLogService;
 import top.hyzhu.share.app.service.UserService;
 
 /**
@@ -23,6 +24,7 @@ import top.hyzhu.share.app.service.UserService;
 @Service
 @AllArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+    private final BonusLogService bonusLogService;
     @Override
     public UserInfoVO userInfo() {
         Integer userId = RequestContext.getUserId();
@@ -33,7 +35,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new ServerException(ErrorCode.USER_NOT_EXIST);
         }
             UserInfoVO userInfoVO = UserConvert.INSTANCE.convert(user);
-            // TODO 用户是否签到
+            // 用户是否签到
+            userInfoVO.setIsDailyCheck(bonusLogService.isTodayCheck(userId));
             return userInfoVO;
     }
 

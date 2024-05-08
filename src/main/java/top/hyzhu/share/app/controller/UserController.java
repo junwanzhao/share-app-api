@@ -39,8 +39,17 @@ public class UserController {
     public Result<UserInfoVO> update(@RequestBody UserEditDTO userEditDTO) {
         return Result.ok(userService.updateInfo(userEditDTO));
     }
+
     private final BonusLogService bonusLogService;
-    @PostMapping("bonus/page") @Operation(summary = "积分明细")
+    @PostMapping("bonus/page")
+    @Operation(summary = "积分明细")
     public Result<PageResult<BonusLogVO>> bonusPage(@RequestBody @Valid Query query) {
-        return Result.ok(bonusLogService.page(query)); }
+        return Result.ok(bonusLogService.page(query));
+    }
+
+    @PostMapping("dailyCheck")
+    @Operation(summary = "每⽇签到")
+    public Result<Object> dailyCheck() {
+        bonusLogService.dailyCheck();
+        return Result.ok(); }
 }
