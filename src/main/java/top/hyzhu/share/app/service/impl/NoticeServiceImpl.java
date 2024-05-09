@@ -35,4 +35,9 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
         List<NoticeVO> list = baseMapper.getNoticePage(page, query);
         return new PageResult<>(list, page.getTotal());
     }
+
+    @Override
+    public NoticeVO detail(Integer id) {
+        return baseMapper.getNoticeDetail(id);
+    }
 }

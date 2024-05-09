@@ -18,4 +18,6 @@ import java.util.List;
 public interface NoticeMapper extends BaseMapper<Notice> {
     List<NoticeVO> indexPageNotice();
     List<NoticeVO> getNoticePage(Page<NoticeVO> page, @Param("query") NoticeQuery query);
+    //分⻚查询通知详情⽅法
+    NoticeVO getNoticeDetail(Integer id);
 }

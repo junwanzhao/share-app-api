@@ -33,5 +33,11 @@ public class NoticeController {
     @PostMapping("/page")
     @Operation(summary = "分⻚查询公告")
     public Result<PageResult<NoticeVO>> page(@RequestBody @Valid NoticeQuery query) {
-        return Result.ok(noticeService.getNoticeList(query)); }
+        return Result.ok(noticeService.getNoticeList(query));
+    }
+
+    @GetMapping("/detail/{id}") @Operation(summary = "公告详情")
+    public Result<NoticeVO> detail(@PathVariable Integer id) {
+        return Result.ok(noticeService.detail(id));
+    }
 }

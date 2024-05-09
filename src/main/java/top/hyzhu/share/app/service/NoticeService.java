@@ -18,4 +18,6 @@ public interface NoticeService extends IService<Notice> {
     List<NoticeVO> indexPageNotice();
     //分⻚查询公告⽅法
     PageResult<NoticeVO> getNoticeList(NoticeQuery query);
+    //公告详情查询⽅法
+    NoticeVO detail(Integer id);
 }
