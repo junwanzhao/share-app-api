@@ -2,11 +2,12 @@ package top.hyzhu.share.app.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import top.hyzhu.share.app.common.result.PageResult;
 import top.hyzhu.share.app.common.result.Result;
+import top.hyzhu.share.app.model.query.NoticeQuery;
 import top.hyzhu.share.app.model.vo.NoticeVO;
 import top.hyzhu.share.app.service.NoticeService;
 
@@ -27,4 +28,10 @@ public class NoticeController {
     @Operation(summary = "⾸⻚置顶公告")
     public Result<List<NoticeVO>> index() {
         return Result.ok(noticeService.indexPageNotice());
-    } }
+    }
+
+    @PostMapping("/page")
+    @Operation(summary = "分⻚查询公告")
+    public Result<PageResult<NoticeVO>> page(@RequestBody @Valid NoticeQuery query) {
+        return Result.ok(noticeService.getNoticeList(query)); }
+}

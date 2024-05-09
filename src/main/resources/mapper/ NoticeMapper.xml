@@ -10,4 +10,15 @@
         ORDER BY tn.create_time DESC
         LIMIT 5
     </select>
+
+    <select id="getNoticePage" resultType="top.hyzhu.share.app.model.vo.NoticeVO"
+    >
+        SELECT tn.*, sm.username AS adminName FROM t_notice tn
+        LEFT JOIN sys_manager sm ON tn.admin_id = sm.pk_id
+        WHERE tn.delete_flag = 0
+        <if test="query.title != null and query.title != '' ">
+            AND tn.title LIKE concat('%',#{query.title},'%')
+        </if>
+        ORDER BY tn.is_top DESC, tn.create_time DESC
+    </select>
 </mapper>
