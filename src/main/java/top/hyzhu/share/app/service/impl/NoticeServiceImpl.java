@@ -40,4 +40,10 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
     public NoticeVO detail(Integer id) {
         return baseMapper.getNoticeDetail(id);
     }
+
+    //实现获取轮播公告的⽅法
+    @Override
+    public List<NoticeVO> swiperNotice() {
+        return baseMapper.swiperNotice();
+    }
 }

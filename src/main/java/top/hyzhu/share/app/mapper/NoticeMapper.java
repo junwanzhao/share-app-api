@@ -20,4 +20,6 @@ public interface NoticeMapper extends BaseMapper<Notice> {
     List<NoticeVO> getNoticePage(Page<NoticeVO> page, @Param("query") NoticeQuery query);
     //分⻚查询通知详情⽅法
     NoticeVO getNoticeDetail(Integer id);
+    //获取轮播图的⽅法
+    List<NoticeVO> swiperNotice();
 }

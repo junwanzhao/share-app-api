@@ -29,4 +29,14 @@
         WHERE tn.delete_flag = 0
           AND tn.pk_id = #{id}
     </select>
+
+    <select id="swiperNotice" resultType="top.hyzhu.share.app.model.vo.NoticeVO">
+        SELECT tn.*, sm.username AS adminName
+        FROM t_notice tn
+                 LEFT JOIN sys_manager sm ON tn.admin_id = sm.pk_id
+        WHERE tn.delete_flag = 0
+          AND tn.is_swiper = 1
+        ORDER BY tn.is_top DESC, tn.create_time DESC
+            LIMIT 5
+    </select>
 </mapper>

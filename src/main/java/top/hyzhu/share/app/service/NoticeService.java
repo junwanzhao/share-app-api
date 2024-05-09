@@ -20,4 +20,6 @@ public interface NoticeService extends IService<Notice> {
     PageResult<NoticeVO> getNoticeList(NoticeQuery query);
     //公告详情查询⽅法
     NoticeVO detail(Integer id);
+    //获取轮播公告的⽅法
+    List<NoticeVO> swiperNotice();
 }

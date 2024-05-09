@@ -40,4 +40,9 @@ public class NoticeController {
     public Result<NoticeVO> detail(@PathVariable Integer id) {
         return Result.ok(noticeService.detail(id));
     }
+
+    @GetMapping("swiper") @Operation(summary = "⾸⻚轮播图")
+    public Result<List<NoticeVO>> swiper() {
+        return Result.ok(noticeService.swiperNotice());
+    }
 }
