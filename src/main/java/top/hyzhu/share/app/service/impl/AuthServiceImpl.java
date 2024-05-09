@@ -60,16 +60,16 @@ public class AuthServiceImpl extends ServiceImpl<UserMapper, User> implements Au
         User user = baseMapper.getByPhone(phone);
         //判断用户是否注册过，如果user为空代表未注册，进行注册。否则开启登录流程
         if (ObjectUtils.isEmpty(user)) {
-//            log.info("用户不存在，创建用户，phone:{}", phone);
-//            user = new User();
-//            user.setNickname(phone);
-//            user.setPhone(phone);
-//            user.setAvatar("默认头像的url");
-//            user.setEnabled(AccountStatusEnum.ENABLED.getValue());
-//            user.setBonus(0);
-//            user.setRemark("这个人很懒，什么都没有写");
-//            baseMapper.insert(user);
-            throw new ServerException("账户不存在，请先微信注册");
+            log.info("用户不存在，创建用户，phone:{}", phone);
+            user = new User();
+            user.setNickname(phone);
+            user.setPhone(phone);
+            user.setAvatar("默认头像的url");
+            user.setEnabled(AccountStatusEnum.ENABLED.getValue());
+            user.setBonus(0);
+            user.setRemark("这个人很懒，什么都没有写");
+            baseMapper.insert(user);
+//            throw new ServerException("账户不存在，请先微信注册");
         }
         //用户被禁用
         if (!user.getEnabled().equals(AccountStatusEnum.ENABLED.getValue())) {

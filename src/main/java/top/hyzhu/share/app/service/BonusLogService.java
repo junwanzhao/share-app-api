@@ -22,8 +22,7 @@ public interface BonusLogService extends IService<BonusLog> {
     /**
      * 增加积分，使⽤⼊参进⾏增减
      */
-    void addBonusLog(Integer userId, BonusActionEnum contentEnum, Integer
-            bonus);
+    void addBonusLog(Integer userId, BonusActionEnum contentEnum, Integer bonus);
     /**
      * 检查今⽇是否签到的⽅法
      */

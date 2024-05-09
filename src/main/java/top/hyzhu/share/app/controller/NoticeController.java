@@ -1,0 +1,30 @@
+package top.hyzhu.share.app.controller;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import top.hyzhu.share.app.common.result.Result;
+import top.hyzhu.share.app.model.vo.NoticeVO;
+import top.hyzhu.share.app.service.NoticeService;
+
+import java.util.List;
+
+/**
+ * @Author: zhy
+ * @Description:
+ * @Date: 2024-05-09 18:53
+ **/
+@RestController
+@AllArgsConstructor
+@Tag(name = "公告接⼝", description = "公告接⼝") @RequestMapping("/notice")
+public class NoticeController {
+    private final NoticeService noticeService;
+
+    @GetMapping("/index")
+    @Operation(summary = "⾸⻚置顶公告")
+    public Result<List<NoticeVO>> index() {
+        return Result.ok(noticeService.indexPageNotice());
+    } }

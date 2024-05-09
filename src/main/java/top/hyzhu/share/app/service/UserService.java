@@ -18,7 +18,7 @@ public interface UserService extends IService<User> {
     UserInfoVO userInfo();
 
     /*
-    * 更新信息
+    * 更新修改信息
     *
     * @param userEditDTO 用户编辑 DTO
     * @return UserInfoVO*/
