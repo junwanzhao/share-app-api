@@ -13,4 +13,5 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true) @Schema(name = "NoticeQuery", description = "公告查询")
 public class NoticeQuery extends Query {
     @Schema(description = "标题")
-    private String title; }
+    private String title;
+}

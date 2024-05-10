@@ -24,18 +24,19 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> implements NoticeService {
+    //实现获取公告列表的⽅法
     @Override
     public List<NoticeVO> indexPageNotice() {
         return baseMapper.indexPageNotice();
     }
-
+    //实现分页查询公告的⽅法
     @Override
     public PageResult<NoticeVO> getNoticeList(NoticeQuery query) {
         Page<NoticeVO> page = new Page<>(query.getPage(), query.getLimit());
         List<NoticeVO> list = baseMapper.getNoticePage(page, query);
         return new PageResult<>(list, page.getTotal());
     }
-
+    //实现获取公告详情的⽅法
     @Override
     public NoticeVO detail(Integer id) {
         return baseMapper.getNoticeDetail(id);

@@ -14,7 +14,7 @@ import java.util.List;
  * @Date: 2024-05-09 18:49
  **/
 public interface NoticeService extends IService<Notice> {
-    //定义获取⾸⻚置顶公告⽅法
+    //获取首页置顶公告列表⽅法
     List<NoticeVO> indexPageNotice();
     //分⻚查询公告⽅法
     PageResult<NoticeVO> getNoticeList(NoticeQuery query);

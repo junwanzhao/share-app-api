@@ -20,27 +20,28 @@ import java.util.List;
  **/
 @RestController
 @AllArgsConstructor
-@Tag(name = "公告接⼝", description = "公告接⼝") @RequestMapping("/notice")
+@Tag(name = "公告接⼝", description = "公告接⼝")
+@RequestMapping("/notice")
 public class NoticeController {
     private final NoticeService noticeService;
-
+    //获取首页置顶通知接口
     @GetMapping("/index")
     @Operation(summary = "⾸⻚置顶公告")
     public Result<List<NoticeVO>> index() {
         return Result.ok(noticeService.indexPageNotice());
     }
-
+    //定义并实现分页查询的接口
     @PostMapping("/page")
     @Operation(summary = "分⻚查询公告")
     public Result<PageResult<NoticeVO>> page(@RequestBody @Valid NoticeQuery query) {
         return Result.ok(noticeService.getNoticeList(query));
     }
-
+    //实现公告详情查询接口
     @GetMapping("/detail/{id}") @Operation(summary = "公告详情")
     public Result<NoticeVO> detail(@PathVariable Integer id) {
         return Result.ok(noticeService.detail(id));
     }
-
+    //定义并实现获取首页轮播图公告的接口
     @GetMapping("swiper") @Operation(summary = "⾸⻚轮播图")
     public Result<List<NoticeVO>> swiper() {
         return Result.ok(noticeService.swiperNotice());

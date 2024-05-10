@@ -12,13 +12,16 @@ import java.util.List;
 
 /**
  * @Author: zhy
- * @Description: 定义获取⾸⻚置顶通知列表⽅法
+ * @Description:
  * @Date: 2024-05-09 18:46
  **/
 public interface NoticeMapper extends BaseMapper<Notice> {
+
+    //获取首页置顶公告列表⽅法
     List<NoticeVO> indexPageNotice();
+    //分⻚查询公告⽅法
     List<NoticeVO> getNoticePage(Page<NoticeVO> page, @Param("query") NoticeQuery query);
-    //分⻚查询通知详情⽅法
+    //分⻚查询公告详情⽅法
     NoticeVO getNoticeDetail(Integer id);
     //获取轮播图的⽅法
     List<NoticeVO> swiperNotice();
