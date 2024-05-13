@@ -7,13 +7,16 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import top.hyzhu.share.app.common.cache.RequestContext;
 import top.hyzhu.share.app.common.cache.TokenStoreCache;
 import top.hyzhu.share.app.common.result.PageResult;
+import top.hyzhu.share.app.convert.ResourceConvert;
 import top.hyzhu.share.app.enums.ResourceStatusEnum;
 import top.hyzhu.share.app.enums.UserActionEnum;
 import top.hyzhu.share.app.mapper.ResourceMapper;
 import top.hyzhu.share.app.mapper.UserMapper;
+import top.hyzhu.share.app.model.dto.ResourcePublishDTO;
 import top.hyzhu.share.app.model.entity.Resource;
 import top.hyzhu.share.app.model.entity.User;
 import top.hyzhu.share.app.model.query.ResourceQuery;
@@ -157,5 +160,19 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
             detail.setIsDownload(userActionService.resourceIsAction(currentUserId, resourceId, UserActionEnum.EXCHANGE));
         }
         return detail; }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void publish(ResourcePublishDTO dto) {
+        log.info("ResourceServiceImpl.publish dto:{}", dto);
+        Integer userId = RequestContext.getUserId();
+        Resource resource = ResourceConvert.INSTANCE.convert(dto);
+        resource.setAuthor(userId);
+        resource.setStatus(ResourceStatusEnum.UNAUDITED.getCode());
+        resource.setLikeNum(0);
+        log.info("ResourceServiceImpl.publish resource:{}", resource);
+        save(resource);
+        // 记录⽤户投稿⾏为
+        userActionService.insertUserAction(userId, resource.getPkId(), UserActionEnum.PUBLISH); }
 }
 
