@@ -101,6 +101,15 @@ public class UserActionServiceImpl extends ServiceImpl<UserActionMapper, UserAct
     public Integer selectCountByResourceIdAndType(Integer resourceId, UserActionEnum userActionEnum) {
         LambdaQueryWrapper<UserAction> queryWrapper = new LambdaQueryWrapper<>( );
         return Math.toIntExact(count(queryWrapper.eq(UserAction::getResourceId,
-                resourceId).eq(UserAction::getType, userActionEnum.getCode()))); }
+                resourceId).eq(UserAction::getType, userActionEnum.getCode())));
+    }
 
+    @Override
+    public Boolean resourceIsAction(Integer userId, Integer resourceId, UserActionEnum userActionEnum) {
+        LambdaQueryWrapper<UserAction> queryWrapper = new LambdaQueryWrapper<>( );
+        queryWrapper.eq(UserAction::getResourceId, resourceId)
+                .eq(UserAction::getUserId, userId)
+                .eq(UserAction::getType, userActionEnum.getCode());
+        return baseMapper.selectCount(queryWrapper) > 0;
+    }
 }

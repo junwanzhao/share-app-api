@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import top.hyzhu.share.app.common.cache.RequestContext;
+import top.hyzhu.share.app.common.cache.TokenStoreCache;
 import top.hyzhu.share.app.common.result.PageResult;
 import top.hyzhu.share.app.enums.ResourceStatusEnum;
 import top.hyzhu.share.app.enums.UserActionEnum;
@@ -17,6 +18,7 @@ import top.hyzhu.share.app.model.entity.Resource;
 import top.hyzhu.share.app.model.entity.User;
 import top.hyzhu.share.app.model.query.ResourceQuery;
 import top.hyzhu.share.app.model.query.UserActionResourceQuery;
+import top.hyzhu.share.app.model.vo.ResourceDetailVO;
 import top.hyzhu.share.app.model.vo.ResourceItemVO;
 import top.hyzhu.share.app.model.vo.UserActionListInfo;
 import top.hyzhu.share.app.service.CategoryService;
@@ -27,6 +29,8 @@ import top.hyzhu.share.app.service.UserActionService;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static top.hyzhu.share.app.common.constant.Constant.NO_TOKEN;
 
 /**
  * @Author: zhy
@@ -42,7 +46,7 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     private final UserMapper userMapper;
     private final CategoryService categoryService;
     private final TagService tagService;
-
+    private final TokenStoreCache tokenStoreCache;
     @Override
     public PageResult<ResourceItemVO> getUserActionResourcePage(UserActionResourceQuery query) {
         Integer userId = RequestContext.getUserId();
@@ -117,6 +121,41 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
                     resource.getPkId(), UserActionEnum.COLLECT));
             return vo;
         }).collect(Collectors.toList());
-        return new PageResult<>(voList, page.getTotal()); }
+        return new PageResult<>(voList, page.getTotal());
+    }
+
+    @Override
+    public ResourceDetailVO getResourceDetail(Integer resourceId, String accessToken) {
+        Resource resource = getById(resourceId);
+        ResourceDetailVO detail = new ResourceDetailVO();
+        detail.setPkId(resource.getPkId());
+        detail.setTitle(resource.getTitle());
+        detail.setPrice(resource.getPrice());
+        detail.setIsTop(resource.getIsTop());
+        detail.setDownloadUrl(resource.getDownloadUrl());
+        detail.setDetail(resource.getDetail());
+        detail.setRemark(resource.getRemark());
+        detail.setStatus(resource.getStatus());
+        detail.setCreateTime(resource.getCreateTime());
+        User author = userMapper.selectById(resource.getAuthor());
+        detail.setAuthor(author.getNickname());
+        detail.setAuthorAvatar(author.getAvatar());
+        detail.setDiskType(categoryService.getById(resource.getDiskType()).getTitle());
+        detail.setResType(categoryService.queryCategoryNameList(resource.getResType()));
+        detail.setTags(tagService.queryTagNamesByIds(resource.getTags()));
+        detail.setLikeNum(userActionService.selectCountByResourceIdAndType(resourceId, UserActionEnum.LIKE));
+        detail.setDownloadNum(userActionService.selectCountByResourceIdAndType
+                (resourceId, UserActionEnum.EXCHANGE));
+        detail.setCollectNum(userActionService.selectCountByResourceIdAndType(
+                resourceId, UserActionEnum.COLLECT));
+
+        if (!accessToken.equals(NO_TOKEN)) {
+            Integer currentUserId = tokenStoreCache.getUser(accessToken).getPkId();
+            detail.setIsLike(userActionService.resourceIsAction(currentUserId,
+                    resourceId, UserActionEnum.LIKE));
+            detail.setIsCollect(userActionService.resourceIsAction(currentUserId, resourceId, UserActionEnum.COLLECT));
+            detail.setIsDownload(userActionService.resourceIsAction(currentUserId, resourceId, UserActionEnum.EXCHANGE));
+        }
+        return detail; }
 }
 

@@ -5,6 +5,7 @@ import top.hyzhu.share.app.common.result.PageResult;
 import top.hyzhu.share.app.model.entity.Resource;
 import top.hyzhu.share.app.model.query.ResourceQuery;
 import top.hyzhu.share.app.model.query.UserActionResourceQuery;
+import top.hyzhu.share.app.model.vo.ResourceDetailVO;
 import top.hyzhu.share.app.model.vo.ResourceItemVO;
 
 /**
@@ -16,4 +17,6 @@ public interface ResourceService extends IService<Resource> {
     PageResult<ResourceItemVO> getUserActionResourcePage(UserActionResourceQuery query);
 
     PageResult<ResourceItemVO> getResourcePage(ResourceQuery query);
+
+    ResourceDetailVO getResourceDetail(Integer resourceId, String accessToken);
 }

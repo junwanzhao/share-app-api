@@ -25,4 +25,6 @@ public interface UserActionService extends IService<UserAction> {
     UserActionListInfo selectResourceListByUserIdAndType(Integer userId, UserActionEnum userActionEnum, Page<UserAction> page);
 
     Integer selectCountByResourceIdAndType(Integer resourceId, UserActionEnum userActionEnum);
+    //判断⽤户是否有这种⾏为
+    Boolean resourceIsAction(Integer userId, Integer resourceId, UserActionEnum userActionEnum);
 }
