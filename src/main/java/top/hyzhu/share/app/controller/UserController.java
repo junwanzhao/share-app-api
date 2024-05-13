@@ -69,4 +69,9 @@ public class UserController {
         userActionService.likeResource(resourceId);
         return Result.ok();
     }
+
+    @PostMapping("resource/exchange") @Operation(summary = "兑换下载资源")
+    public Result<Object> exchangeResource(@RequestParam Integer resourceId) {
+        userActionService.exchangeResource(resourceId);
+        return Result.ok(); }
 }

@@ -5,11 +5,19 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import top.hyzhu.share.app.common.cache.RequestContext;
+import top.hyzhu.share.app.common.exception.ServerException;
+import top.hyzhu.share.app.enums.BonusActionEnum;
 import top.hyzhu.share.app.enums.UserActionEnum;
+import top.hyzhu.share.app.mapper.ResourceMapper;
 import top.hyzhu.share.app.mapper.UserActionMapper;
+import top.hyzhu.share.app.model.entity.Resource;
+import top.hyzhu.share.app.model.entity.User;
 import top.hyzhu.share.app.model.entity.UserAction;
+import top.hyzhu.share.app.service.BonusLogService;
 import top.hyzhu.share.app.service.UserActionService;
+import top.hyzhu.share.app.service.UserService;
 
 /**
  * @Author: zhy
@@ -20,6 +28,9 @@ import top.hyzhu.share.app.service.UserActionService;
 @Service
 @AllArgsConstructor
 public class UserActionServiceImpl extends ServiceImpl<UserActionMapper, UserAction> implements UserActionService {
+    private final ResourceMapper resourceMapper;
+    private final UserService userService;
+    private final BonusLogService bonusLogService;
     @Override
     public void insertUserAction(Integer userId, Integer resourceId, UserActionEnum userActionEnum) {
         UserAction userAction = new UserAction();
@@ -51,6 +62,22 @@ public class UserActionServiceImpl extends ServiceImpl<UserActionMapper, UserAct
             // 如新增点赞、收藏操作
             insertUserAction(userId, resourceId, userActionEnum);
         }
+    }
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void exchangeResource(Integer resourceId) {
+        Resource resource = resourceMapper.selectById(resourceId);
+        Integer price = resource.getPrice();
+        Integer userId = RequestContext.getUserId();
+        User user = userService.getById(userId);
+        if (user.getBonus() < price) {
+            throw new ServerException("积分不⾜");
+        }
+        actionResource(userId, resourceId, UserActionEnum.EXCHANGE);
+        // 兑换⼈扣减积分
+        bonusLogService.addBonusLog(userId, BonusActionEnum.RESOURCE_EXCHANGE, -price);
+        // 资源作者增加积分
+        bonusLogService.addBonusLog(resource.getAuthor(), BonusActionEnum.RESOURCE_BE_EXCHANGED);
     }
 
 }

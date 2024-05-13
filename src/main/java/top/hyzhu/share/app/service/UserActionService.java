@@ -13,4 +13,5 @@ public interface UserActionService extends IService<UserAction> {
     void insertUserAction(Integer userId, Integer resourceId, UserActionEnum userActionEnum);
     void collectResource(Integer resourceId);
     void likeResource(Integer resourceId);
+    void exchangeResource(Integer resourceId);
 }
