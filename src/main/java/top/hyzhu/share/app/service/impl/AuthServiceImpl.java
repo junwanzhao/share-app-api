@@ -110,7 +110,7 @@ public class AuthServiceImpl extends ServiceImpl<UserMapper, User> implements Au
 
         JSONObject wxUserData = JSON.parseObject(jsonUserData);
 
-        User user = baseMapper.getByWx0penId(openid);
+        User user = baseMapper.getByWxOpenId(openid);
         if (ObjectUtils.isEmpty(user)) {
             log.info("用户不存在，创建用户，openId:{}", openid);
             user = new User();

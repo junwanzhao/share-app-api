@@ -15,7 +15,7 @@ public interface UserMapper extends BaseMapper<User> {
         return this.selectOne(new LambdaQueryWrapper<User>().eq(User::getPhone, phone));
     }
 //根据微信 openId 查询用户
-    default User getByWx0penId(String openId){
+    default User getByWxOpenId(String openId){
         return this.selectOne(new LambdaQueryWrapper<User>().eq(User::getWxOpenId, openId));
     }
 }

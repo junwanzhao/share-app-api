@@ -21,7 +21,7 @@ public class CategoryVO {
     @Schema(name="type",description = "分类类型")
     private final Integer type;
 
-    @Schema(name="description",description = "描述")
+    @Schema(name="descripti",description = "描述")
     private final String description;
 
 }

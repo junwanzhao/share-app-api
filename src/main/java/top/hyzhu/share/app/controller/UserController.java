@@ -14,6 +14,7 @@ import top.hyzhu.share.app.model.vo.BonusLogVO;
 import top.hyzhu.share.app.model.vo.UserInfoVO;
 import top.hyzhu.share.app.service.BonusLogService;
 import top.hyzhu.share.app.service.UserService;
+import top.hyzhu.share.app.service.UserActionService;
 
 /**
  * @Author: zhy
@@ -51,5 +52,21 @@ public class UserController {
     @Operation(summary = "每⽇签到")
     public Result<Object> dailyCheck() {
         bonusLogService.dailyCheck();
-        return Result.ok(); }
+        return Result.ok();
+    }
+
+    private final UserActionService userActionService;
+    @PostMapping("resource/collect")
+    @Operation(summary = "收藏资源")
+    public Result<Object> collectResource(@RequestParam Integer resourceId) {
+        userActionService.collectResource(resourceId);
+        return Result.ok();
+    }
+
+    @PostMapping("resource/like")
+    @Operation(summary = "点赞资源")
+    public Result<Object> likeResource(@RequestParam Integer resourceId) {
+        userActionService.likeResource(resourceId);
+        return Result.ok();
+    }
 }
