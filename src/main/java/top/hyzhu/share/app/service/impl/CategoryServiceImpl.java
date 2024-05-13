@@ -36,4 +36,10 @@ public List<CategoryVO> getCategoryList() {
 //        List<Category> categoryList = categoryMapper.selectList(new LambdaQueryWrapper<>());
 //        return CategoryConvert.INSTANCE.convert(categoryList);
 //    }
+@Override
+public List<String> queryCategoryNameList(List<Integer> pkIdList) {
+    return baseMapper.selectBatchIds(pkIdList)
+            .stream()
+            .map(Category::getTitle)
+            .toList(); }
 }

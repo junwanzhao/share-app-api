@@ -10,9 +10,12 @@ import top.hyzhu.share.app.common.result.PageResult;
 import top.hyzhu.share.app.common.result.Result;
 import top.hyzhu.share.app.model.dto.UserEditDTO;
 import top.hyzhu.share.app.model.query.Query;
+import top.hyzhu.share.app.model.query.UserActionResourceQuery;
 import top.hyzhu.share.app.model.vo.BonusLogVO;
+import top.hyzhu.share.app.model.vo.ResourceItemVO;
 import top.hyzhu.share.app.model.vo.UserInfoVO;
 import top.hyzhu.share.app.service.BonusLogService;
+import top.hyzhu.share.app.service.ResourceService;
 import top.hyzhu.share.app.service.UserService;
 import top.hyzhu.share.app.service.UserActionService;
 
@@ -73,5 +76,12 @@ public class UserController {
     @PostMapping("resource/exchange") @Operation(summary = "兑换下载资源")
     public Result<Object> exchangeResource(@RequestParam Integer resourceId) {
         userActionService.exchangeResource(resourceId);
-        return Result.ok(); }
+        return Result.ok();
+    }
+
+    private final ResourceService resourceService;
+    @PostMapping("resource")
+    @Operation(summary = "资源⾏为列表")
+    public Result<PageResult<ResourceItemVO>> resourcePage(@RequestBody UserActionResourceQuery query) {
+        return Result.ok(resourceService.getUserActionResourcePage(query)); }
 }

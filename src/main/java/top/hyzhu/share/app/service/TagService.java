@@ -15,4 +15,5 @@ import java.util.List;
 public interface TagService extends IService<Tag> {
     //实现获取标签列表的⽅法
     List<TagVO> getTagList();
+    List<String> queryTagNamesByIds(List<Integer> pkIdList);
 }

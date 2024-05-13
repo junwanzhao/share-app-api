@@ -1,6 +1,7 @@
 package top.hyzhu.share.app.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,9 +16,12 @@ import top.hyzhu.share.app.mapper.UserActionMapper;
 import top.hyzhu.share.app.model.entity.Resource;
 import top.hyzhu.share.app.model.entity.User;
 import top.hyzhu.share.app.model.entity.UserAction;
+import top.hyzhu.share.app.model.vo.UserActionListInfo;
 import top.hyzhu.share.app.service.BonusLogService;
 import top.hyzhu.share.app.service.UserActionService;
 import top.hyzhu.share.app.service.UserService;
+
+import java.util.stream.Collectors;
 
 /**
  * @Author: zhy
@@ -79,5 +83,24 @@ public class UserActionServiceImpl extends ServiceImpl<UserActionMapper, UserAct
         // 资源作者增加积分
         bonusLogService.addBonusLog(resource.getAuthor(), BonusActionEnum.RESOURCE_BE_EXCHANGED);
     }
+
+    @Override
+    public UserActionListInfo selectResourceListByUserIdAndType(Integer userId
+            , UserActionEnum userActionEnum, Page<UserAction> page) {
+        LambdaQueryWrapper<UserAction> queryWrapper = new LambdaQueryWrapper<>
+                ();
+        Page<UserAction> pageResult = page(page, queryWrapper.eq(UserAction::getUserId, userId).eq(UserAction::getType, userActionEnum.getCode()));
+        return new UserActionListInfo(pageResult.getTotal(),
+                pageResult.getRecords()
+                        .stream()
+                        .map(UserAction::getResourceId)
+                        .collect(Collectors.toList()));
+    }
+
+    @Override
+    public Integer selectCountByResourceIdAndType(Integer resourceId, UserActionEnum userActionEnum) {
+        LambdaQueryWrapper<UserAction> queryWrapper = new LambdaQueryWrapper<>( );
+        return Math.toIntExact(count(queryWrapper.eq(UserAction::getResourceId,
+                resourceId).eq(UserAction::getType, userActionEnum.getCode()))); }
 
 }

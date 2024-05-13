@@ -14,4 +14,6 @@ import java.util.List;
 public interface CategoryService extends IService<Category> {
     //实现获取分类列表的⽅法
     List<CategoryVO> getCategoryList();
+
+    List<String> queryCategoryNameList(List<Integer> pkIdList);
 }

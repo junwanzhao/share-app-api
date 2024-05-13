@@ -28,4 +28,10 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
         List<Tag> tagList = baseMapper.selectList(new LambdaQueryWrapper<>());
         return TagConvert.INSTANCE.convert(tagList);
     }
+    @Override
+    public List<String> queryTagNamesByIds(List<Integer> ids) {
+        return baseMapper.selectBatchIds(ids)
+                .stream()
+                .map(Tag::getTitle)
+                .toList(); }
 }
